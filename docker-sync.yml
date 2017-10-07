@@ -3,7 +3,7 @@ version: "2"
 options:
   verbose: true
 syncs:
-  apps-sync: # name of the intermediary sync volume
+  app-sync: # name of the intermediary sync volume
     src: '${APPLICATIONS_PATH}/${APP}' # host source directory
     sync_strategy: '${DOCKER_SYNC_STRATEGY}' # for osx use 'native_osx', for windows use 'unison'
     sync_excludes: ['ignored_folder_example'] # ignored directories
