@@ -46,7 +46,7 @@ docker-compose up ruby -f docker-compose.yml -f docker-compose.mac.yml up -d
 ```
 
 Second option, is to copy `docker-compose.mac.yml` to `docker-compose.override.yml`.
-`docker-compose` by default will read both `docker-compose.yml` as default configuration
+`docker-compose` by default will read both `docker-compose.yml` as default
 and `docker-compose.override.yml` as override configurations.
 
 ```
