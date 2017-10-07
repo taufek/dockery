@@ -3,6 +3,7 @@
 * [Setup Guide](#setup-guide)
 	* [Files and Folders](#files-and-folders)
 	* [Mac-Specific Setup](#mac-specific-setup)
+	* [Run Rails App](#run-rails-app)
 
 Docker for Ruby. Docker Containers for Ruby Development Enviroment. It is heavily inspired by
 [Laradock](https://github.com/laradock/laradock) project.
@@ -63,4 +64,12 @@ and `docker-compose.override.yml` as override configurations.
 cp docker-compose.mac.yml docker-compose.override.yml
 
 docker-compose up ruby -d
+```
+
+<a name="run-rails-app"></a>
+### Run Rails App
+
+Assume you already have an app named `blog` in `apps` folder.
+```
+
 ```

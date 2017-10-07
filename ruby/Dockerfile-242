@@ -32,6 +32,4 @@ WORKDIR /apps
 COPY entrypoint.sh /root/entrypoint.sh
 COPY Gemfile /var/www/ruby/rails-app/Gemfile
 
-RUN chmod +x /root/entrypoint.sh
-
-ENTRYPOINT /root/entrypoint.sh
+#ENTRYPOINT /root/entrypoint.sh
