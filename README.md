@@ -1,12 +1,11 @@
 # Dockery
 Docker for Ruby. Docker Containers for Ruby Development Enviroment. It is heavily inspired by
+[Laradock](https://github.com/laradock/laradock) project.
 
 * [Setup Guide](#setup-guide)
 	* [Files and Folders](#files-and-folders)
 	* [Mac-Specific Setup](#mac-specific-setup)
 	* [Run Rails App](#run-rails-app)
-
-[Laradock](https://github.com/laradock/laradock) project.
 
 <a name="setup-guide"></a>
 ## Setup Guide
