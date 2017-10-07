@@ -38,7 +38,7 @@ services:
         - RAILS_VERSION=${RUBY_RAILS_VERSION}
         - INSTALL_RAILS=${RUBY_INSTALL_RAILS}
         - INSTALL_NODE=${RUBY_INSTALL_NODE}
-    command: ${RUBY_COMMAND}
+    command: rails-up
     volumes:
       - ${APPLICATIONS_PATH}/${APP}:/app
       - ${DATA_PATH}/${RUBY_BUNDLE_DIR}/${RUBY_VERSION}:/usr/local/bundle

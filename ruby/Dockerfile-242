@@ -2,29 +2,33 @@ FROM library/ruby:2.4.2
 
 RUN gem install bundler
 
-ARG INSTALL_RAILS=false
+RUN mkdir /app
+RUN mkdir /template
+
 ARG RAILS_VERSION=5.1.4
-ENV INSTALL_RAILS ${INSTALL_RAILS}
 ENV RAILS_VERSION ${RAILS_VERSION}
+
+COPY Gemfile /template/Gemfile
+COPY rails-new.sh /usr/local/bin/rails-new
+COPY rails-up.sh /usr/local/bin/rails-up
+
+RUN chmod +x /usr/local/bin/rails*
+
+RUN sed -i -- "s/RAILS_VERSION/${RAILS_VERSION}/g" /template/Gemfile
+
+ARG INSTALL_RAILS=false
+ENV INSTALL_RAILS ${INSTALL_RAILS}
 
 RUN if [ ${INSTALL_RAILS} = true ]; then \
   gem install rails -v ${RAILS_VERSION} \
 ;fi
 
-COPY Gemfile /var/www/ruby/rails-app/Gemfile
-
-RUN sed -i -- "s/RAILS_VERSION/${RAILS_VERSION}/g" /var/www/ruby/rails-app/Gemfile
-
 ARG INSTALL_NODE=false
 ENV INSTALL_NODE ${INSTALL_NODE}
 
 RUN if [ ${INSTALL_NODE} = true ]; then \
-  apt-get update \
-  && apt-get install -y nodejs \
+  apt-get update -qq --fix-missing && apt-get install -y --force-yes nodejs \
 ;fi
-
-RUN mkdir /app
-RUN mkdir -p /var/www/ruby/rails-app
 
 # Set default work directory
 WORKDIR /app
