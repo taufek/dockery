@@ -2,11 +2,6 @@ version: '2'
 
 services:
 
-    applications:
-      image: tianon/true
-      volumes:
-        - ${APPLICATION}:/apps
-
     ruby:
       build:
         context: ./ruby
@@ -15,10 +10,9 @@ services:
           - RAILS_VERSION=${RUBY_RAILS_VERSION}
           - INSTALL_RAILS=${RUBY_INSTALL_RAILS}
           - INSTALL_NODE=${RUBY_INSTALL_NODE}
-      volumes_from:
-        - applications
       volumes:
         - ${RUBY_BUNDLE_DIR}:/usr/local/bundle
+        - ${APPLICATION}:/apps
       ports:
         - "${RUBY_RAILS_PORT}:3000"
       tty: true
