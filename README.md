@@ -43,6 +43,12 @@ to run `blog` application, you set that project folder name to `APP` key in
 APP=blog
 ```
 
+If the project folder is empty, you can generate new rails project with below command.
+
+```
+docker-compose run ruby rails-new
+```
+
 
 <a name="mac-specific-setup"></a>
 ### Mac-Specific Setup
@@ -85,5 +91,7 @@ docker-compose up ruby -d
 
 Assume you already have an app named `blog` in `apps` folder.
 ```
-
+docker-compose up ruby -d
 ```
+
+The Rails app will be available at http://localhost:8000
