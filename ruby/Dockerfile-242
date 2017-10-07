@@ -19,10 +19,10 @@ RUN if [ ${INSTALL_NODE} = true ]; then \
   && apt-get install -y nodejs \
 ;fi
 
-RUN mkdir /apps
+RUN mkdir /app
 RUN mkdir -p /var/www/ruby/rails-app
 
 # Set default work directory
-WORKDIR /apps
+WORKDIR /app
 
 COPY Gemfile /var/www/ruby/rails-app/Gemfile

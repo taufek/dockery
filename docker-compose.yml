@@ -40,8 +40,8 @@ services:
         - INSTALL_NODE=${RUBY_INSTALL_NODE}
     command: ${RUBY_COMMAND}
     volumes:
-      - ${RUBY_BUNDLE_DIR}:/usr/local/bundle
-      - ${APPLICATION}:/apps
+      - ${APPLICATIONS_PATH}/${APP}:/app
+      - ${DATA_PATH}/${RUBY_BUNDLE_DIR}/${RUBY_VERSION}:/usr/local/bundle
     ports:
       - "${RUBY_RAILS_PORT}:3000"
     tty: true
