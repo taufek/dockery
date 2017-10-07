@@ -38,7 +38,7 @@ services:
         - RAILS_VERSION=${RUBY_RAILS_VERSION}
         - INSTALL_RAILS=${RUBY_INSTALL_RAILS}
         - INSTALL_NODE=${RUBY_INSTALL_NODE}
-    command: $RUBY_COMMAND
+    command: ${RUBY_COMMAND}
     volumes:
       - ${RUBY_BUNDLE_DIR}:/usr/local/bundle
       - ${APPLICATION}:/apps
