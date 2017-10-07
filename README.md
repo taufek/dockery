@@ -8,7 +8,7 @@ This setup requires below folders structure. You should have a main folders
 that holds 2 folders:
 
 1. apps - where you setup your multiple ruby/rails projects
-1. rubydock - where you checkout RubyDock project.
+1. rubydock - where you checkout Dockery project.
 
 ```
 <main_folder>
@@ -17,7 +17,7 @@ that holds 2 folders:
 |  |-- project1/
 |  |-- project2/
 |
-|--rubydock/ (RubyDock project)
+|--dockery/ (RubyDock project)
 ```
 
 ### Mac Specific Setup
