@@ -26,3 +26,6 @@ RUN mkdir -p /var/www/ruby/rails-app
 WORKDIR /app
 
 COPY Gemfile /var/www/ruby/rails-app/Gemfile
+
+RUN sed -i -- "s/RAILS_VERSION/${RAILS_VERSION}/g" /var/www/ruby/rails-app/Gemfile
+
