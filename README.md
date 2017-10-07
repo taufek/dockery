@@ -43,6 +43,10 @@ to run `blog` application, you set that project folder name to `APP` key in
 APP=blog
 ```
 
+**Note**: If you are on Mac, most probably you will use Docker Sync. Refer to 
+[Mac-Specific Setup](#mac-specific-setup). Then, each time you change this entry 
+you will need to run `dockery-sync sync` to resync your project folder.
+
 If the project folder is empty, you can generate new rails project with below command.
 
 ```
