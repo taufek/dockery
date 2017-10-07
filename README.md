@@ -1,8 +1,17 @@
 # Dockery
+
+* [Setup Guide](#setup-guide)
+	* [Files and Folders](#files-and-folders)
+	* [Mac-Specific Setup](#mac-specific-setup)
+
 Docker for Ruby. Docker Containers for Ruby Development Enviroment. It is heavily inspired by
 [Laradock](https://github.com/laradock/laradock) project.
 
+<a name="setup-guide"></a>
 ## Setup Guide
+
+<a name="files-and-folder"></a>
+### Files and Folders
 
 This setup requires below folders structure. You should have a main folders
 that holds 2 folders:
@@ -20,7 +29,8 @@ that holds 2 folders:
 |--dockery/ (RubyDock project)
 ```
 
-### Mac Specific Setup
+<a name="mac-specific-setup"></a>
+### Mac-Specific Setup
 
 Docker on Mac is known to have performance issue with its file syncing.
 To improve the speed, we can use [Docker Sync](http://docker-sync.io).
@@ -52,8 +62,5 @@ and `docker-compose.override.yml` as override configurations.
 ```
 cp docker-compose.mac.yml docker-compose.override.yml
 
-docker-compse up ruby -d
+docker-compose up ruby -d
 ```
-
-
-
