@@ -8,7 +8,7 @@ This setup requires below folders structure. You should have a main folders
 that holds 2 folders:
 
 1. apps - where you setup your multiple ruby/rails projects
-1. rubydock - where you checkout Dockery project.
+1. dockery - where you checkout Dockery project.
 
 ```
 <main_folder>
