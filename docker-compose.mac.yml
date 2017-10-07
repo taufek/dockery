@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+
+### Applications Code Container #############################
+
+    ruby:
+      volumes:
+        - apps-sync:/apps:nocopy # nocopy is required
+        - bundle-sync:/usr/local/bundle:nocopy # nocopy is required
+
+### Volumes Setup #############################################
+
+volumes:
+  apps-sync:
+    external:
+      name: "apps-docker-sync"
+  bundle-sync:
+    external:
+      name: "bundle-docker-sync"

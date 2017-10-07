@@ -20,4 +20,40 @@ that holds 2 folders:
 |--rubydock/ (RubyDock project)
 ```
 
+### Mac Specific Setup
+
+Docker on Mac is known to have performance issue with its file syncing.
+To improve the speed, we can use [Docker Sync](http://docker-sync.io).
+`docker-sync.yml` is Docker Sync configuration file which maps applications
+and bundle folders.
+
+Run below command to start Docker Sync service
+
+```
+docker-sync start
+```
+
+Refer to this Docker Sync [commands wiki](https://github.com/EugenMayer/docker-sync/wiki/2.1-sync-commands) for other available commands.
+
+`docker-compose.mac.yml` is the override file which overrides the volumes
+configurations from `docker-compose.yml` to Docker Sync managed volumes.
+There are 2 ways to use this override file.
+
+First option is to use `docker-compose -f` flag as shown below:
+
+```
+docker-compose up ruby -f docker-compose.yml -f docker-compose.mac.yml up -d
+```
+
+Second option, is to copy `docker-compose.mac.yml` to `docker-compose.override.yml`.
+`docker-compose` by default will read both `docker-compose.yml` as default configuration
+and `docker-compose.override.yml` as override configurations.
+
+```
+cp docker-compose.mac.yml docker-compose.override.yml
+
+docker-compse up ruby -d
+```
+
+
 
