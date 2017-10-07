@@ -2,23 +2,51 @@ version: '2'
 
 services:
 
-    ruby:
-      build:
-        context: ./ruby
-        dockerfile: "Dockerfile-${RUBY_VERSION}"
-        args:
-          - RAILS_VERSION=${RUBY_RAILS_VERSION}
-          - INSTALL_RAILS=${RUBY_INSTALL_RAILS}
-          - INSTALL_NODE=${RUBY_INSTALL_NODE}
-      volumes:
-        - ${RUBY_BUNDLE_DIR}:/usr/local/bundle
-        - ${APPLICATION}:/apps
-      ports:
-        - "${RUBY_RAILS_PORT}:3000"
-      tty: true
-      networks:
-        - frontend
-        - backend
+  mysql:
+    image: mysql
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - TZ=${MYSQL_TIMEZONE}
+    volumes:
+      - ${DATA_PATH}/mysql:/var/lib/mysql
+    ports:
+      - "${MYSQL_PORT}:3306"
+    networks:
+      - backend
+
+  postgres:
+    image: postgres
+    volumes:
+      - ${DATA_PATH}/postgres:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - backend
+
+  ruby:
+    build:
+      context: ./ruby
+      dockerfile: "Dockerfile-${RUBY_VERSION}"
+      args:
+        - RAILS_VERSION=${RUBY_RAILS_VERSION}
+        - INSTALL_RAILS=${RUBY_INSTALL_RAILS}
+        - INSTALL_NODE=${RUBY_INSTALL_NODE}
+    volumes:
+      - ${RUBY_BUNDLE_DIR}:/usr/local/bundle
+      - ${APPLICATION}:/apps
+    ports:
+      - "${RUBY_RAILS_PORT}:3000"
+    tty: true
+    networks:
+      - frontend
+      - backend
 
 networks:
   frontend:
