@@ -1,0 +1,37 @@
+FROM library/ruby:2.4.2
+
+RUN apt-get update -qq
+RUN apt-get install -y build-essential libpq-dev
+
+RUN gem update
+RUN gem install bundler
+
+ARG INSTALL_RAILS=false
+ARG RAILS_VERSION=5.1.4
+ENV INSTALL_RAILS ${INSTALL_RAILS}
+ENV RAILS_VERSION ${RAILS_VERSION}
+
+RUN if [ ${INSTALL_RAILS} = true ]; then \
+  gem install rails -v ${RAILS_VERSION} \
+;fi
+
+ARG INSTALL_NODE=false
+ENV INSTALL_NODE ${INSTALL_NODE}
+
+RUN if [ ${INSTALL_NODE} = true ]; then \
+  apt-get update \
+  && apt-get install -y nodejs \
+;fi
+
+RUN mkdir /apps
+RUN mkdir -p /var/www/ruby/rails-app
+
+# Set default work directory
+WORKDIR /apps
+
+COPY entrypoint.sh /root/entrypoint.sh
+COPY Gemfile /var/www/ruby/rails-app/Gemfile
+
+RUN chmod +x /root/entrypoint.sh
+
+#ENTRYPOINT /root/entrypoint.sh

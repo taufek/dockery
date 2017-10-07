@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+
+    applications:
+      image: tianon/true
+      volumes:
+        - ${APPLICATION}:/apps
+
+    ruby:
+      build:
+        context: ./ruby
+        dockerfile: "Dockerfile-${RUBY_VERSION}"
+        args:
+          - RAILS_VERSION=${RUBY_RAILS_VERSION}
+          - INSTALL_RAILS=${RUBY_INSTALL_RAILS}
+          - INSTALL_NODE=${RUBY_INSTALL_NODE}
+      volumes_from:
+        - applications
+      volumes:
+        - ${RUBY_BUNDLE_DIR}:/usr/local/bundle
+      ports:
+        - "${RUBY_RAILS_PORT}:3000"
+      tty: true
+      networks:
+        - frontend
+        - backend
+
+networks:
+  frontend:
+    driver: "bridge"
+  backend:
+    driver: "bridge"
