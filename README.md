@@ -30,6 +30,21 @@ that holds 2 folders:
 |--dockery/ (RubyDock project)
 ```
 
+Create `.env` file by copying from `.env.example`
+
+```
+cp .env.example .env
+```
+
+Set the application folder name that you wish to run. For example, if you wish
+to run `blog` application, you set that project folder name to `APP` key in
+`.env` file
+
+```
+APP=blog
+```
+
+
 <a name="mac-specific-setup"></a>
 ### Mac-Specific Setup
 
