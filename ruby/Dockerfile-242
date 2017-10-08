@@ -20,14 +20,17 @@ ARG INSTALL_RAILS=false
 ENV INSTALL_RAILS ${INSTALL_RAILS}
 
 RUN if [ ${INSTALL_RAILS} = true ]; then \
-  gem install rails -v ${RAILS_VERSION} \
+  apt-get update -qq --fix-missing \
+  && apt-get install -y libqt4-dev \
+  && gem install rails -v ${RAILS_VERSION} \
 ;fi
 
 ARG INSTALL_NODE=false
 ENV INSTALL_NODE ${INSTALL_NODE}
 
 RUN if [ ${INSTALL_NODE} = true ]; then \
-  apt-get update -qq --fix-missing && apt-get install -y --force-yes nodejs \
+  apt-get update -qq --fix-missing \
+  && apt-get install -y --force-yes nodejs \
 ;fi
 
 # Set default work directory
