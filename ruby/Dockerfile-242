@@ -25,6 +25,14 @@ RUN if [ ${INSTALL_RAILS} = true ]; then \
   && gem install rails -v ${RAILS_VERSION} \
 ;fi
 
+ARG INSTALL_POSTGRES=false
+ENV INSTALL_POSTGRES ${INSTALL_POSTGRES}
+
+RUN if [ ${INSTALL_POSTGRES} = true ]; then \
+  apt-get update -qq --fix-missing \
+  && apt-get install -y postgresql postgresql-contrib libpq-dev \
+;fi
+
 ARG INSTALL_NODE=false
 ENV INSTALL_NODE ${INSTALL_NODE}
 
