@@ -1,4 +1,5 @@
-# Dockery [![Build Status](https://travis-ci.org/taufek/dockery.svg?branch=master)](https://travis-ci.org/taufek/dockery)
+# Dockery [![Build Status](https://travis-ci.org/taufek/dockery.svg?branch=master)](https://travis-ci.org/taufek/dockery) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Docker for Ruby. Docker Containers for Ruby Development Enviroment. It is heavily inspired by
 [Laradock](https://github.com/laradock/laradock) project.
 
