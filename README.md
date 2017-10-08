@@ -24,11 +24,11 @@ that holds 2 folders:
 ```
 <main_folder>
 |
-|--apps/ (contains Ruby/Rails projects)
+|--apps/ (contains multple Ruby/Rails projects)
 |  |-- blog/
 |  |-- other-awesome-project/
 |
-|--dockery/ (RubyDock project)
+|--dockery/ (Dockery project)
 ```
 
 This structure is define by below `.env` entry
@@ -108,7 +108,7 @@ to run `./resync.sh` to resync your project folder.
 
 Assume you already have an app named `blog` in `apps` folder.
 ```
-docker-compose up ruby -d
+docker-compose up -d ruby
 ```
 
 The Rails app will be available at http://localhost:8000
