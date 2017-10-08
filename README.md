@@ -37,8 +37,8 @@ that holds 2 folders:
 <main_folder>
 |
 |--apps/ (contains Ruby/Rails projects)
-|  |-- project1/
-|  |-- project2/
+|  |-- blog/
+|  |-- other-awesome-project/
 |
 |--dockery/ (RubyDock project)
 ```
