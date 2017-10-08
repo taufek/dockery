@@ -40,7 +40,8 @@ RUN if [ ${INSTALL_NODE} = true ]; then \
   apt-get update -qq --fix-missing \
   && apt-get install -y curl \
   && curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh \
-  && ./nodesource_setup.sh \
+  && bash ./nodesource_setup.sh \
+  && rm nodesource_setup.sh \
   && apt-get install -y nodejs build-essential \
 ;fi
 
