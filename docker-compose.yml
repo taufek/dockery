@@ -38,13 +38,14 @@ services:
         - RAILS_VERSION=${RUBY_RAILS_VERSION}
         - INSTALL_RAILS=${RUBY_INSTALL_RAILS}
         - INSTALL_NODE=${RUBY_INSTALL_NODE}
+        - INSTALL_POSTGRES=${RUBY_INSTALL_POSTGRES}
     command: rails-up
     volumes:
       - ${APPLICATIONS_PATH}/${APP}:/app
       - ${DATA_PATH}/${RUBY_BUNDLE_DIR}/${RUBY_VERSION}:/usr/local/bundle
     environment:
       - DB_HOST=${RUBY_DB_HOST}
-      - DB_NAME=${RUBY_DB_NAME}
+      - DB_NAME=${APP}_development
       - DB_USER=${RUBY_DB_USER}
       - DB_PASSWORD=${RUBY_DB_PASSWORD}
     ports:
