@@ -4,6 +4,7 @@ Docker for Ruby. Docker Containers for Ruby Development Enviroment. It is heavil
 
 * [Setup Guide](#setup-guide)
 	* [Files and Folders](#files-and-folders)
+	* [Create a Project](#create-a-project)
 	* [Mac-Specific Setup](#mac-specific-setup)
 	* [Run Rails App](#run-rails-app)
 
@@ -17,14 +18,6 @@ Create `.env` file by copying from `.env.example`
 
 ```
 cp .env.example .env
-```
-
-Set the application folder name that you wish to run. For example, if you wish
-to run `blog` application, you set that project folder name to `APP` key in
-`.env` file
-
-```
-APP=blog
 ```
 
 This setup requires below folders structure. You should have a main folders
@@ -52,16 +45,23 @@ APPLICATIONS_PATH=../apps
 If you wish to have different place to hold your projects you'll have to change
 that entry.
 
-**Note**: If you are on Mac, most probably you will use Docker Sync. Refer to 
-[Mac-Specific Setup](#mac-specific-setup). Then, each time you change this entry 
-you will need to run `dockery-sync sync` to resync your project folder.
+<a name="create-a-project"></a>
+### Create a Project
 
-If the project folder is empty, you can generate new rails project with below command.
+Set the application folder name that you wish to run. For example, if you wish
+to run `blog` application, you set that project folder name to `APP` key in
+`.env` file
+
+```
+APP=blog
+```
+
+If just want to start fresh and the project folder is empty, you can generate
+new rails project with below command.
 
 ```
 docker-compose run ruby rails-new
 ```
-
 
 <a name="mac-specific-setup"></a>
 ### Mac-Specific Setup
@@ -98,6 +98,9 @@ cp docker-compose.mac.yml docker-compose.override.yml
 
 docker-compose up ruby -d
 ```
+
+Each time you change an entry that related to your project path, you will need
+to run `dockery-sync sync` to resync your project folder.
 
 <a name="run-rails-app"></a>
 ### Run Rails App
