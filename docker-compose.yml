@@ -39,9 +39,14 @@ services:
         - INSTALL_RAILS=${RUBY_INSTALL_RAILS}
         - INSTALL_NODE=${RUBY_INSTALL_NODE}
     command: rails-up
-    volumes:
-      - ${APPLICATIONS_PATH}/${APP}:/app
-      - ${DATA_PATH}/${RUBY_BUNDLE_DIR}/${RUBY_VERSION}:/usr/local/bundle
+    # volumes:
+    #   - ${APPLICATIONS_PATH}/${APP}:/app
+    #   - ${DATA_PATH}/${RUBY_BUNDLE_DIR}/${RUBY_VERSION}:/usr/local/bundle
+    environment:
+      - DB_HOST=${RUBY_DB_HOST}
+      - DB_NAME=${RUBY_DB_NAME}
+      - DB_USER=${RUBY_DB_USER}
+      - DB_PASSWORD=${RUBY_DB_PASSWORD}
     ports:
       - "${RUBY_RAILS_PORT}:3000"
     tty: true
