@@ -14,13 +14,7 @@ Docker for Ruby. Docker Containers for Ruby Development Enviroment. It is heavil
 <a name="files-and-folder"></a>
 ### Files and Folders
 
-Create `.env` file by copying from `.env.example`
-
-```
-cp .env.example .env
-```
-
-This setup requires below folders structure. You should have a main folders
+This setup suggests with below folders structure. You should have a main folders
 that holds 2 folders:
 
 1. apps - where you setup your multiple ruby/rails projects
@@ -47,6 +41,12 @@ that entry.
 
 <a name="create-a-project"></a>
 ### Create a Project
+
+Create `.env` file by copying from `.env.example`
+
+```
+cp .env.example .env
+```
 
 Set the application folder name that you wish to run. For example, if you wish
 to run `blog` application, you set that project folder name to `APP` key in
