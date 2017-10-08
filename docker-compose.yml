@@ -38,6 +38,7 @@ services:
         - RAILS_VERSION=${RUBY_RAILS_VERSION}
         - INSTALL_RAILS=${RUBY_INSTALL_RAILS}
         - INSTALL_NODE=${RUBY_INSTALL_NODE}
+        - INSTALL_YARN=${RUBY_INSTALL_YARN}
         - INSTALL_POSTGRES=${RUBY_INSTALL_POSTGRES}
     command: rails-up
     volumes:
