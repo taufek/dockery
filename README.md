@@ -102,6 +102,7 @@ docker-compose up ruby -d
 Each time you change an entry that related to your project path, you will need
 to run below commands to resync your project folder.
 
+1. `dockery-compose down`
 1. `dockery-sync clean`
 1. `dockery-sync start`
 
