@@ -1,4 +1,4 @@
-# Dockery
+# Dockery [![Build Status](https://travis-ci.org/taufek/dockery.svg?branch=master)](https://travis-ci.org/taufek/dockery)
 Docker for Ruby. Docker Containers for Ruby Development Enviroment. It is heavily inspired by
 [Laradock](https://github.com/laradock/laradock) project.
 
