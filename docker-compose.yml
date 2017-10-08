@@ -39,9 +39,9 @@ services:
         - INSTALL_RAILS=${RUBY_INSTALL_RAILS}
         - INSTALL_NODE=${RUBY_INSTALL_NODE}
     command: rails-up
-    # volumes:
-    #   - ${APPLICATIONS_PATH}/${APP}:/app
-    #   - ${DATA_PATH}/${RUBY_BUNDLE_DIR}/${RUBY_VERSION}:/usr/local/bundle
+    volumes:
+      - ${APPLICATIONS_PATH}/${APP}:/app
+      - ${DATA_PATH}/${RUBY_BUNDLE_DIR}/${RUBY_VERSION}:/usr/local/bundle
     environment:
       - DB_HOST=${RUBY_DB_HOST}
       - DB_NAME=${RUBY_DB_NAME}
