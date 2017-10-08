@@ -105,6 +105,7 @@ to run below commands to resync your project folder.
 1. `dockery-compose down`
 1. `dockery-sync clean`
 1. `dockery-sync start`
+1. `dockery-sync sync`
 
 <a name="run-rails-app"></a>
 ### Run Rails App
