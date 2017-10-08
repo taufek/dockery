@@ -13,6 +13,20 @@ Docker for Ruby. Docker Containers for Ruby Development Enviroment. It is heavil
 <a name="files-and-folder"></a>
 ### Files and Folders
 
+Create `.env` file by copying from `.env.example`
+
+```
+cp .env.example .env
+```
+
+Set the application folder name that you wish to run. For example, if you wish
+to run `blog` application, you set that project folder name to `APP` key in
+`.env` file
+
+```
+APP=blog
+```
+
 This setup requires below folders structure. You should have a main folders
 that holds 2 folders:
 
@@ -29,19 +43,14 @@ that holds 2 folders:
 |--dockery/ (RubyDock project)
 ```
 
-Create `.env` file by copying from `.env.example`
+This structure is define by below `.env` entry
 
 ```
-cp .env.example .env
+APPLICATIONS_PATH=../apps
 ```
 
-Set the application folder name that you wish to run. For example, if you wish
-to run `blog` application, you set that project folder name to `APP` key in
-`.env` file
-
-```
-APP=blog
-```
+If you wish to have different place to hold your projects you'll have to change
+that entry.
 
 **Note**: If you are on Mac, most probably you will use Docker Sync. Refer to 
 [Mac-Specific Setup](#mac-specific-setup). Then, each time you change this entry 
