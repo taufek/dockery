@@ -13,6 +13,8 @@ services:
 
 volumes:
   app-sync:
-    external: true
+    external:
+      name: 'app-docker-sync'
   bundle-sync:
-    external: true
+    external:
+      name: 'bundle-docker-sync'
