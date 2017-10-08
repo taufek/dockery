@@ -86,7 +86,7 @@ There are 2 ways to use this override file.
 First option is to use `docker-compose -f` flag as shown below:
 
 ```
-docker-compose up ruby -f docker-compose.yml -f docker-compose.mac.yml up -d
+docker-compose up -d -f docker-compose.yml -f docker-compose.mac.yml ruby
 ```
 
 Second option, is to copy `docker-compose.mac.yml` to `docker-compose.override.yml`.
@@ -96,7 +96,7 @@ and `docker-compose.override.yml` as override configurations.
 ```
 cp docker-compose.mac.yml docker-compose.override.yml
 
-docker-compose up ruby -d
+docker-compose up -d ruby
 ```
 
 Each time you change an entry that related to your project path, you will need
