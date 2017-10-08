@@ -9,10 +9,9 @@ ARG RAILS_VERSION=5.1.4
 ENV RAILS_VERSION ${RAILS_VERSION}
 
 COPY Gemfile /template/Gemfile
-COPY rails-new.sh /usr/local/bin/rails-new
-COPY rails-up.sh /usr/local/bin/rails-up
+COPY bin/ /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/rails*
+RUN chmod +x -R /usr/local/bin
 
 RUN sed -i -- "s/RAILS_VERSION/${RAILS_VERSION}/g" /template/Gemfile
 

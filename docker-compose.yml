@@ -31,6 +31,7 @@ services:
       - backend
 
   ruby:
+    image: ${RUBY_IMAGE_NAME}
     build:
       context: ./ruby
       dockerfile: "Dockerfile-${RUBY_VERSION}"
