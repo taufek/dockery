@@ -23,4 +23,6 @@ if [ -n "${RUBY_VERSION}" ]; then
 
   docker-compose run ruby gem install rails -v $RUBY_RAILS_VERSION
   docker-compose run ruby rails-new
+  docker-compose up -d postgres
+  docker-compose run ruby rails db:create
 fi

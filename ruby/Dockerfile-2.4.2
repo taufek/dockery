@@ -8,21 +8,12 @@ RUN mkdir /template
 ARG RAILS_VERSION=5.1.4
 ENV RAILS_VERSION ${RAILS_VERSION}
 
-COPY Gemfile /template/Gemfile
+COPY template/ /template/
 COPY bin/ /usr/local/bin/
 
 RUN chmod +x -R /usr/local/bin
 
 RUN sed -i -- "s/RAILS_VERSION/${RAILS_VERSION}/g" /template/Gemfile
-
-ARG INSTALL_RAILS=false
-ENV INSTALL_RAILS ${INSTALL_RAILS}
-
-RUN if [ ${INSTALL_RAILS} = true ]; then \
-  apt-get update -qq --fix-missing \
-  && apt-get install -y libqt4-dev \
-  && gem install rails -v ${RAILS_VERSION} \
-;fi
 
 ARG INSTALL_POSTGRES=false
 ENV INSTALL_POSTGRES ${INSTALL_POSTGRES}
@@ -30,6 +21,7 @@ ENV INSTALL_POSTGRES ${INSTALL_POSTGRES}
 RUN if [ ${INSTALL_POSTGRES} = true ]; then \
   apt-get update -qq --fix-missing \
   && apt-get install -y postgresql postgresql-contrib libpq-dev \
+  && sed -i -- "s/sqlite3/postgresql/g" /usr/local/bin/rails-new \
 ;fi
 
 ARG INSTALL_NODE=false
