@@ -40,6 +40,12 @@ APPLICATIONS_PATH=../apps
 If you wish to have different place to hold your projects you'll have to change
 that entry.
 
+`ruby` workspace has 2 versions of `volume` mapping; `linux` and `mac`. This is
+because for Mac, it requires performance boost with Docker Sync. Refer to
+[Mac-Specific Setup](#mac-specific-setup) for more details. Basically copy either
+`docker-compose.linux.yml` or `docker-compose.mac.yml` to `docker-compose.override.yml`
+in order to get your `ruby` workspace volumes mapped to your host machine.
+
 <a name="create-a-project"></a>
 ### Create a Project
 

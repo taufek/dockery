@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+
+### Applications Code Container #############################
+
+  ruby:
+    volumes:
+      - ${APPLICATIONS_PATH}/${APP}:/app
+      - ${DATA_PATH}/${RUBY_BUNDLE_DIR}/${MY_RUBY_VERSION}:/usr/local/bundle
+
+### Volumes Setup #############################################
+
+volumes:
+  ruby:
+    driver: "local"

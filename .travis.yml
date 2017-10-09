@@ -5,7 +5,7 @@ services:
 
 env:
   matrix:
-    - RUBY_VERSION=2.4.2 RUBY_RAILS_VERSION=5.1.4 BUILD_SERVICE="ruby postgres"
+    - MY_RUBY_VERSION=2.4.2 RUBY_RAILS_VERSION=5.1.4
 
 # Installing a newer Docker version
 before_install:
@@ -19,3 +19,7 @@ script: ./travis-build.sh
 
 notifications:
   email: false
+
+cache:
+  directories:
+    - ~/.dockery/data/bundle/2.4.2

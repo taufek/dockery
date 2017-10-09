@@ -1,9 +1,10 @@
 development: &default
-  adapter: postgresql
+  adapter: <%= ENV.fetch("DB_ADAPTER") %>
   host: <%= ENV.fetch("DB_HOST") %>
-  user: <%= ENV.fetch("DB_USER") %>
+  port: <%= ENV.fetch("DB_PORT") %>
+  username: <%= ENV.fetch("DB_USER") %>
   password: <%= ENV.fetch("DB_PASSWORD") %>
-  database: <%= ENV.fetch("DB_NAME") %>
+  database: <%= ENV.fetch("APP_NAME") + "_development" %>
   encoding: utf8
   min_messages: warning
   pool: <%= Integer(ENV.fetch("DB_POOL", 5)) %>
@@ -12,7 +13,7 @@ development: &default
 
 test:
   <<: *default
-  database: design_lab_test
+  database: <%= ENV.fetch("APP_NAME") + "_test" %>
 
 production: &deploy
   encoding: utf8

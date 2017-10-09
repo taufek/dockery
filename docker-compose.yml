@@ -5,7 +5,6 @@ services:
   mysql:
     image: mysql
     environment:
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
@@ -34,22 +33,21 @@ services:
     image: ${RUBY_IMAGE_NAME}
     build:
       context: ./ruby
-      dockerfile: "Dockerfile-${RUBY_VERSION}"
+      dockerfile: "Dockerfile-${MY_RUBY_VERSION}"
       args:
         - RAILS_VERSION=${RUBY_RAILS_VERSION}
-        - INSTALL_RAILS=${RUBY_INSTALL_RAILS}
         - INSTALL_NODE=${RUBY_INSTALL_NODE}
         - INSTALL_YARN=${RUBY_INSTALL_YARN}
         - INSTALL_POSTGRES=${RUBY_INSTALL_POSTGRES}
+        - INSTALL_MYSQL=${RUBY_INSTALL_MYSQL}
     command: rails-up
-    volumes:
-      - ${APPLICATIONS_PATH}/${APP}:/app
-      - ${DATA_PATH}/${RUBY_BUNDLE_DIR}/${RUBY_VERSION}:/usr/local/bundle
     environment:
+      - APP_NAME=${APP}
       - DB_HOST=${RUBY_DB_HOST}
-      - DB_NAME=${APP}_development
+      - DB_PORT=${RUBY_DB_PORT}
       - DB_USER=${RUBY_DB_USER}
       - DB_PASSWORD=${RUBY_DB_PASSWORD}
+      - DB_ADAPTER=${RUBY_DB_ADAPTER}
     ports:
       - "${RUBY_RAILS_PORT}:3000"
     tty: true

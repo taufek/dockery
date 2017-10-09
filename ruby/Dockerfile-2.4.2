@@ -21,7 +21,14 @@ ENV INSTALL_POSTGRES ${INSTALL_POSTGRES}
 RUN if [ ${INSTALL_POSTGRES} = true ]; then \
   apt-get update -qq --fix-missing \
   && apt-get install -y postgresql postgresql-contrib libpq-dev \
-  && sed -i -- "s/sqlite3/postgresql/g" /usr/local/bin/rails-new \
+;fi
+
+ARG INSTALL_MYSQL=false
+ENV INSTALL_MYSQL ${INSTALL_MYSQL}
+
+RUN if [ ${INSTALL_MYSQL} = true ]; then \
+  apt-get update -qq --fix-missing \
+  && apt-get install -y mysql-client \
 ;fi
 
 ARG INSTALL_NODE=false

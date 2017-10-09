@@ -10,19 +10,30 @@ echo '##### Print environment'
 env | sort
 
 #### Build the Docker Images
-if [ -n "${RUBY_VERSION}" ]; then
+if [ -n "${MY_RUBY_VERSION}" ]; then
   cp env.example .env
-  sed -i -- "s/RUBY_VERSION=.*/RUBY_VERSION=${RUBY_VERSION}/g" .env
+  sed -i -- "s/MY_RUBY_VERSION=.*/MY_RUBY_VERSION=${MY_RUBY_VERSION}/g" .env
   sed -i -- "s/RUBY_RAILS_VERSION=.*/RUBY_RAILS_VERSION=${RUBY_RAILS_VERSION}/g" .env
   sed -i -- 's/=false/=true/g' .env
 
   cat .env
 
-  docker-compose build ${BUILD_SERVICE}
+  cp docker-compose.linux.yml docker-compose.override.yml
+
+  docker-compose build ruby
   docker images
 
   docker-compose run ruby gem install rails -v $RUBY_RAILS_VERSION
-  docker-compose run ruby rails-new
-  docker-compose up -d postgres
+
+  sed -i -- "s/RUBY_DB_ADAPTER=.*/RUBY_DB_ADAPTER=postgresql/g" .env
+  sed -i -- "s/RUBY_DB_HOST=.*/RUBY_DB_HOST=postgres/g" .env
+  sed -i -- "s/RUBY_DB_PORT=.*/RUBY_DB_PORT=5432/g" .env
+  docker-compose run ruby rails-new postgresql
+  docker-compose up -d ruby postgres
+  docker-compose run ruby env
   docker-compose run ruby rails db:create
+  docker-compose run ruby rails db:migrate
+  docker-compose run ruby rails db:setup
+
+  docker-compose down -v
 fi

@@ -1,6 +1,7 @@
 version: "2"
 
 options:
+  compose-dev-file-path: 'docker-compose.override.yml' # docker-compose override file
   verbose: true
 syncs:
   app-docker-sync: # name of the intermediary sync volume
@@ -9,6 +10,6 @@ syncs:
     sync_excludes: ['ignored_folder'] # ignored directories
 
   bundle-docker-sync: # name of the intermediary sync volume
-    src: '${DATA_PATH}/${RUBY_BUNDLE_DIR}/${RUBY_VERSION}' # host source directory
+    src: '${DATA_PATH}/${RUBY_BUNDLE_DIR}/${MY_RUBY_VERSION}' # host source directory
     sync_strategy: '${DOCKER_SYNC_STRATEGY}' # for osx use 'native_osx', for windows use 'unison'
 

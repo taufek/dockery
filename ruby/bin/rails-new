@@ -3,6 +3,6 @@
 cp /template/Gemfile /app/Gemfile
 touch /app/Gemfile.lock
 
-rails new . --force --database=sqlite3
+rails new . --force --database=${1-sqlite3}
 
 yes | cp -f /template/database.yml /app/config/database.yml
