@@ -52,5 +52,13 @@ RUN if [ ${INSTALL_YARN} = true ]; then \
     && echo 'export PATH="$HOME/.yarn/bin:$PATH"' >> ~/.bashrc \
 ;fi
 
+ARG INSTALL_QT_DEPS=false
+ENV INSTALL_QT_DEPS ${INSTALL_QT_DEPS}
+
+RUN if [ ${INSTALL_QT_DEPS} = true ]; then \
+  apt-get update \
+  && apt-get -y install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x \
+;fi
+
 # Set default work directory
 WORKDIR /app

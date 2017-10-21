@@ -40,6 +40,7 @@ services:
         - INSTALL_YARN=${RUBY_INSTALL_YARN}
         - INSTALL_POSTGRES=${RUBY_INSTALL_POSTGRES}
         - INSTALL_MYSQL=${RUBY_INSTALL_MYSQL}
+        - INSTALL_QT_DEPS=${RUBY_INSTALL_QT_DEPS}
     command: rails-up
     environment:
       - APP_NAME=${APP}
