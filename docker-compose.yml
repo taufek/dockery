@@ -41,14 +41,20 @@ services:
         - INSTALL_POSTGRES=${RUBY_INSTALL_POSTGRES}
         - INSTALL_MYSQL=${RUBY_INSTALL_MYSQL}
         - INSTALL_QT_DEPS=${RUBY_INSTALL_QT_DEPS}
+        - INSTALL_XVFB=${RUBY_INSTALL_XVFB}
     command: rails-up
     environment:
       - APP_NAME=${APP}
       - DB_HOST=${RUBY_DB_HOST}
+      - DATABASE_HOST=${RUBY_DB_HOST}
       - DB_PORT=${RUBY_DB_PORT}
       - DB_USER=${RUBY_DB_USER}
+      - DATABASE_USER=${RUBY_DB_USER}
       - DB_PASSWORD=${RUBY_DB_PASSWORD}
+      - DATABASE_PASSWORD=${RUBY_DB_PASSWORD}
       - DB_ADAPTER=${RUBY_DB_ADAPTER}
+      - DATABASE_ADAPTER=${RUBY_DB_ADAPTER}
+      - ADMIN_EMAIL=taufek@gmail.com
     ports:
       - "${RUBY_RAILS_PORT}:3000"
     tty: true

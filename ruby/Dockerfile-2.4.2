@@ -60,5 +60,13 @@ RUN if [ ${INSTALL_QT_DEPS} = true ]; then \
   && apt-get -y install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x \
 ;fi
 
+ARG INSTALL_XVFB=false
+ENV INSTALL_XVFB ${INSTALL_XVFB}
+
+RUN if [ ${INSTALL_XVFB} = true ]; then \
+  apt-get update \
+  && apt-get -y install xvfb\
+;fi
+
 # Set default work directory
 WORKDIR /app
