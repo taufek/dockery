@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd /apps/${APP_NAME}
+
 rm tmp/pids/server.pid
 bundle check || bundle install
-rails s -b 0.0.0.0
+bin/rails s -b 0.0.0.0

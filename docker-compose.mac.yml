@@ -6,7 +6,7 @@ services:
 
   ruby:
     volumes:
-      - app-sync:/app:nocopy # nocopy is required
+      - app-sync:/apps:nocopy # nocopy is required
       - bundle-sync:/usr/local/bundle:nocopy # nocopy is required
 
 ### Volumes Setup #############################################

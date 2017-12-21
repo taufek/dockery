@@ -33,7 +33,7 @@ services:
     image: ${RUBY_IMAGE_NAME}
     build:
       context: ./ruby
-      dockerfile: "Dockerfile-${MY_RUBY_VERSION}"
+      dockerfile: "${MY_RUBY_VERSION}-Dockerfile"
       args:
         - RAILS_VERSION=${RUBY_RAILS_VERSION}
         - INSTALL_NODE=${RUBY_INSTALL_NODE}
@@ -58,6 +58,11 @@ services:
     ports:
       - "${RUBY_RAILS_PORT}:3000"
     tty: true
+    stdin_open: true
+    volumes:
+      - ./ruby/bin/rails-new:/usr/local/bin/rails-new
+      - ./ruby/bin/rails-up:/usr/local/bin/rails-up
+      - ./ruby/template/database.yml:/template/database.yml
     networks:
       - frontend
       - backend

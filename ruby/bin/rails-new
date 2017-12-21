@@ -1,8 +1,5 @@
 #!/bin/bash
 
-cp /template/Gemfile /app/Gemfile
-touch /app/Gemfile.lock
+rails new ${1} --force --database=${2-sqlite3}
 
-rails new . --force --database=${1-sqlite3}
-
-yes | cp -f /template/database.yml /app/config/database.yml
+yes | cp -f /template/database.yml /apps/${1}/config/database.yml

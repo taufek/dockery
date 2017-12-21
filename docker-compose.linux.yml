@@ -6,7 +6,7 @@ services:
 
   ruby:
     volumes:
-      - ${APPLICATIONS_PATH}/${APP}:/app
+      - ${APPLICATIONS_PATH}:/apps
       - ${DATA_PATH}/${RUBY_BUNDLE_DIR}/${MY_RUBY_VERSION}:/usr/local/bundle
 
 ### Volumes Setup #############################################

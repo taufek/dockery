@@ -4,13 +4,24 @@ Docker for Ruby. Docker Containers for Ruby Development Enviroment. It is heavil
 [Laradock](https://github.com/laradock/laradock) project.
 
 * [Setup Guide](#setup-guide)
+	* [Environment Values](#environment-values)
 	* [Files and Folders](#files-and-folders)
-	* [Create a Project](#create-a-project)
 	* [Mac-Specific Setup](#mac-specific-setup)
+	* [Create a Project](#create-a-project)
 	* [Run Rails App](#run-rails-app)
 
 <a name="setup-guide"></a>
 ## Setup Guide
+
+<a name="environment-values"></a>
+### Environment Values
+
+Create `.env` file by copying from `env.example`
+
+```
+cp env.example .env
+```
+
 
 <a name="files-and-folder"></a>
 ### Files and Folders
@@ -46,30 +57,6 @@ because for Mac, it requires performance boost with Docker Sync. Refer to
 `docker-compose.linux.yml` or `docker-compose.mac.yml` to `docker-compose.override.yml`
 in order to get your `ruby` workspace volumes mapped to your host machine.
 
-<a name="create-a-project"></a>
-### Create a Project
-
-Create `.env` file by copying from `.env.example`
-
-```
-cp .env.example .env
-```
-
-Set the application folder name that you wish to run. For example, if you wish
-to run `blog` application, you set that project folder name to `APP` key in
-`.env` file
-
-```
-APP=blog
-```
-
-If just want to start fresh and the project folder is empty, you can generate
-new rails project with below command.
-
-```
-docker-compose run ruby rails-new
-```
-
 <a name="mac-specific-setup"></a>
 ### Mac-Specific Setup
 
@@ -81,8 +68,15 @@ and bundle folders.
 Run below command to start Docker Sync service
 
 ```
-docker-sync start
+./sync.sh
 ```
+
+*Note:* Under the hood, the script runs `docker-sync clean` and
+`docker-sync start` to start fresh with `docker-sync` service.
+If the folders to be managed by `docker-sync` are missing, this script will
+create them for you.
+
+If you wish to stop the `docker-sync` service, run `docker-sync stop`.
 
 Refer to this Docker Sync [commands wiki](https://github.com/EugenMayer/docker-sync/wiki/2.1-sync-commands) for other available commands.
 
@@ -93,7 +87,7 @@ There are 2 ways to use this override file.
 First option is to use `docker-compose -f` flag as shown below:
 
 ```
-docker-compose up -d -f docker-compose.yml -f docker-compose.mac.yml ruby
+docker-compose -f docker-compose.yml -f docker-compose.mac.yml up -d ruby
 ```
 
 Second option, is to copy `docker-compose.mac.yml` to `docker-compose.override.yml`.
@@ -106,11 +100,30 @@ cp docker-compose.mac.yml docker-compose.override.yml
 docker-compose up -d ruby
 ```
 
-Each time you change an entry that related to your project path, you will need
-to run `./resync.sh` to resync your project folder.
+Each time you changed something in .`env` that affects `dockery-sync` source folder
+, i.e. `$MY_RUBY_VERSION`, you will need to run `./sync.sh` to resync your project folder.
+
+<a name="create-a-project"></a>
+### Create a Project
+
+If just want to start fresh and the project folder is empty, you can generate
+new rails project with below command.
+
+```
+docker-compose run ruby rails new blog
+```
 
 <a name="run-rails-app"></a>
 ### Run Rails App
+
+Set the application folder name that you wish to run.
+For example, if you wish to run `blog` application, you set that project
+folder name to `APP` key in
+`.env` file
+
+```
+APP=blog
+```
 
 Assume you already have an app named `blog` in `apps` folder.
 ```

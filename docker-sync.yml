@@ -2,10 +2,10 @@ version: "2"
 
 options:
   compose-dev-file-path: 'docker-compose.override.yml' # docker-compose override file
-  verbose: true
+  verbose: false
 syncs:
   app-docker-sync: # name of the intermediary sync volume
-    src: '${APPLICATIONS_PATH}/${APP}' # host source directory
+    src: '${APPLICATIONS_PATH}' # host source directory
     sync_strategy: '${DOCKER_SYNC_STRATEGY}' # for osx use 'native_osx', for windows use 'unison'
     sync_excludes: ['ignored_folder'] # ignored directories
 

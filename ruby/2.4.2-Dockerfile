@@ -2,18 +2,11 @@ FROM library/ruby:2.4.2
 
 RUN gem install bundler
 
-RUN mkdir /app
+RUN mkdir /apps
 RUN mkdir /template
 
 ARG RAILS_VERSION=5.1.4
 ENV RAILS_VERSION ${RAILS_VERSION}
-
-COPY template/ /template/
-COPY bin/ /usr/local/bin/
-
-RUN chmod +x -R /usr/local/bin
-
-RUN sed -i -- "s/RAILS_VERSION/${RAILS_VERSION}/g" /template/Gemfile
 
 ARG INSTALL_POSTGRES=false
 ENV INSTALL_POSTGRES ${INSTALL_POSTGRES}
@@ -68,5 +61,13 @@ RUN if [ ${INSTALL_XVFB} = true ]; then \
   && apt-get -y install xvfb\
 ;fi
 
+RUN mkdir /app
+
+COPY template/Gemfile /app/Gemfile
+RUN sed -i -- "s/RAILS_VERSION/${RAILS_VERSION}/g" /app/Gemfile
+
+RUN cd /app \
+  bundle install
+
 # Set default work directory
-WORKDIR /app
+WORKDIR /apps
