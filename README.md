@@ -130,4 +130,10 @@ Assume you already have an app named `blog` in `apps` folder.
 docker-compose up -d ruby
 ```
 
+You could also override the `APP` env value inline with the command.
+
+```
+APP=blog docker-compose up -d ruby
+```
+
 The Rails app will be available at http://localhost:8000
