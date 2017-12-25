@@ -82,15 +82,20 @@ Refer to this Docker Sync [commands wiki](https://github.com/EugenMayer/docker-s
 
 `docker-compose.mac.yml` is the override file which overrides the volumes
 configurations from `docker-compose.yml` to Docker Sync managed volumes.
-There are 2 ways to use this override file.
 
-First option is to use `docker-compose -f` flag as shown below:
+**There are 2 ways to use this override file.**
+
+- #### 1st option
+
+> First option is to use `docker-compose -f` flag as shown below:
 
 ```
 docker-compose -f docker-compose.yml -f docker-compose.mac.yml up -d ruby
 ```
 
-Second option, is to copy `docker-compose.mac.yml` to `docker-compose.override.yml`.
+- #### 2nd option
+
+> Second option, is to copy `docker-compose.mac.yml` to `docker-compose.override.yml`.
 `docker-compose` by default will read both `docker-compose.yml` as default
 and `docker-compose.override.yml` as override configurations.
 
