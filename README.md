@@ -3,15 +3,19 @@
 Docker for Ruby. Docker Containers for Ruby Development Enviroment. It is heavily inspired by
 [Laradock](https://github.com/laradock/laradock) project.
 
-* [Setup Guide](#setup-guide)
+* [Getting Started](#getting-started)
 	* [Environment Values](#environment-values)
 	* [Files and Folders](#files-and-folders)
 	* [Mac-Specific Setup](#mac-specific-setup)
 	* [Create a Project](#create-a-project)
 	* [Run Rails App](#run-rails-app)
+* [App With Database](#app-with-database)
+	* [Create App](#create-app-with-database)
+	* [Setup Database](#setup-app-with-database)
+	* [Run App](#run-app-with-database)
 
-<a name="setup-guide"></a>
-## Setup Guide
+<a name="getting-started"></a>
+## Getting Started
 
 <a name="environment-values"></a>
 ### Environment Values
@@ -30,7 +34,8 @@ This setup suggests with below folders structure. You should have a main folders
 that holds 2 folders:
 
 1. apps - where you setup your multiple ruby/rails projects
-1. dockery - where you checkout Dockery project.
+1. dockery - where you checkout Dockery project. All commands (`docker-sync`, `docker-compose`, `synch.sh`)
+should be run in this folder.
 
 ```
 <main_folder>
@@ -118,6 +123,8 @@ new rails project with below command.
 docker-compose run ruby rails new blog
 ```
 
+This will create `blog` app within the `apps` folder.
+
 <a name="run-rails-app"></a>
 ### Run Rails App
 
@@ -139,6 +146,96 @@ You could also override the `APP` env value inline with the command.
 
 ```
 APP=blog docker-compose up -d ruby
+```
+
+The Rails app will be available at http://localhost:8000
+
+
+<a name="app-with-database"></a>
+## App With Database
+
+<a name="create-app-with-database"></a>
+## Create App
+
+Run below command to create new rails `blog` project with postgresql database.
+
+```
+docker-compose run ruby rails new blog --database=postgresql
+```
+
+*Note:* You can switch `postgresql` to `mysql` if that is your choice of database.
+
+There is a helper script, `rails-new` that will do the same but will create following
+database.yml.
+
+```
+docker-compose run ruby rails-new blog postgresql
+```
+
+```
+# database.yml
+development: &default
+  adapter: <%= ENV.fetch("DB_ADAPTER") %>
+  host: <%= ENV.fetch("DB_HOST") %>
+  port: <%= ENV.fetch("DB_PORT") %>
+  username: <%= ENV.fetch("DB_USER") %>
+  password: <%= ENV.fetch("DB_PASSWORD") %>
+  database: <%= ENV.fetch("APP_NAME") + "_development" %>
+  encoding: utf8
+  min_messages: warning
+  pool: <%= Integer(ENV.fetch("DB_POOL", 5)) %>
+  reaping_frequency: <%= Integer(ENV.fetch("DB_REAPING_FREQUENCY", 10)) %>
+  timeout: 5000
+
+test:
+  <<: *default
+  database: <%= ENV.fetch("APP_NAME") + "_test" %>
+
+production: &deploy
+  encoding: utf8
+  min_messages: warning
+  pool: <%= [Integer(ENV.fetch("MAX_THREADS", 5)), Integer(ENV.fetch("DB_POOL", 5))].max %>
+  timeout: 5000
+  url:  <%= ENV.fetch("DATABASE_URL", "") %>
+```
+
+<a name="setup-app-with-database"></a>
+## Setup Database
+
+Start the postgresql service in the background.
+
+```
+docker-compose run up -d postgres
+```
+
+Bundle install.
+
+
+```
+docker-compose run ruby bash -c 'cd blog && bundle check || bundle install'
+```
+
+Setup the database.
+
+
+```
+docker-compose run ruby bash -c 'cd blog && bin/rails db:setup'
+```
+
+Migrate database.
+
+
+```
+docker-compose run ruby bash -c 'cd blog && bin/rails db:migrate'
+```
+
+<a name="run-app-with-database"></a>
+## Run App
+
+Run the app.
+
+```
+APP=blog docker-compose up -d ruby postgres
 ```
 
 The Rails app will be available at http://localhost:8000
