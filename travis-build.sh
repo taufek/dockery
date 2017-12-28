@@ -32,9 +32,10 @@ if [ -n "${MY_RUBY_VERSION}" ]; then
   docker-compose run ruby rails-new myapp postgresql
   docker-compose up -d ruby postgres
   docker-compose run ruby env
-  docker-compose run ruby rails db:create
-  docker-compose run ruby rails db:migrate
-  docker-compose run ruby rails db:setup
+  sleep 5
+  docker-compose run ruby bash -c 'cd myapp && bin/rails db:create'
+  docker-compose run ruby bash -c 'cd myapp && bin/rails db:migrate'
+  docker-compose run ruby bash -c 'cd myapp && bin/rails db:setup'
 
   docker-compose down -v
 fi
