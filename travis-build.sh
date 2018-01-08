@@ -9,6 +9,10 @@ docker --version
 echo '##### Print environment'
 env | sort
 
+assert_site() {
+  wget -O - $1 | if grep -q $2; then echo "found $2"; else echo "$2 not found"; exit 1; fi
+}
+
 #### Build the Docker Images
 if [ -n "${MY_RUBY_VERSION}" ]; then
   cp env.example .env
@@ -37,6 +41,8 @@ if [ -n "${MY_RUBY_VERSION}" ]; then
   docker-compose run ruby bash -c 'cd myapp && bin/rails db:migrate'
   docker-compose run ruby bash -c 'cd myapp && bin/rails db:setup'
 
+  assert_site http://localhost:3000 '5.1.4'
+
   docker-compose down -v
 
   sed -i -- "s/APP=.*/APP=myapp2/g" .env
@@ -50,6 +56,8 @@ if [ -n "${MY_RUBY_VERSION}" ]; then
   docker-compose run ruby bash -c 'cd myapp2 && bin/rails db:create'
   docker-compose run ruby bash -c 'cd myapp2 && bin/rails db:migrate'
   docker-compose run ruby bash -c 'cd myapp2 && bin/rails db:setup'
+
+  assert_site http://localhost:3000 '5.1.4'
 
   docker-compose down -v
 fi
