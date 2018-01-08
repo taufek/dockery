@@ -32,7 +32,7 @@ if [ -n "${MY_RUBY_VERSION}" ]; then
   docker-compose run ruby rails-new myapp postgresql
   docker-compose up -d ruby postgres
   docker-compose run ruby env
-  sleep 5
+  docker-compose run ruby bash -c 'cd myapp && dockerize --wait tcp://postgres:5432 echo "postgresql is ready"'
   docker-compose run ruby bash -c 'cd myapp && bin/rails db:create'
   docker-compose run ruby bash -c 'cd myapp && bin/rails db:migrate'
   docker-compose run ruby bash -c 'cd myapp && bin/rails db:setup'
@@ -46,7 +46,7 @@ if [ -n "${MY_RUBY_VERSION}" ]; then
   docker-compose run ruby rails-new myapp2 mysql
   docker-compose up -d ruby mysql
   docker-compose run ruby env
-  sleep 10
+  docker-compose run ruby bash -c 'cd myapp2 && dockerize --wait tcp://mysql:3306 echo "mysql is ready"'
   docker-compose run ruby bash -c 'cd myapp2 && bin/rails db:create'
   docker-compose run ruby bash -c 'cd myapp2 && bin/rails db:migrate'
   docker-compose run ruby bash -c 'cd myapp2 && bin/rails db:setup'

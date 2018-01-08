@@ -42,6 +42,7 @@ services:
         - INSTALL_MYSQL=${RUBY_INSTALL_MYSQL}
         - INSTALL_QT_DEPS=${RUBY_INSTALL_QT_DEPS}
         - INSTALL_XVFB=${RUBY_INSTALL_XVFB}
+        - INSTALL_DOCKERIZE=${RUBY_INSTALL_DOCKERIZE}
     command: rails-up
     environment:
       - APP_NAME=${APP}

@@ -61,6 +61,17 @@ RUN if [ ${INSTALL_XVFB} = true ]; then \
   && apt-get -y install xvfb\
 ;fi
 
+ENV DOCKERIZE_VERSION v0.6.0
+ARG INSTALL_DOCKERIZE=false
+ENV INSTALL_DOCKERIZE ${INSTALL_DOCKERIZE}
+
+RUN if [ ${INSTALL_DOCKERIZE} = true ]; then \
+  apt-get update && apt-get install -y wget \
+  && wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+;fi
+
 RUN mkdir /app
 
 COPY template/Gemfile /app/Gemfile
