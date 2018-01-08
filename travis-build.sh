@@ -38,4 +38,18 @@ if [ -n "${MY_RUBY_VERSION}" ]; then
   docker-compose run ruby bash -c 'cd myapp && bin/rails db:setup'
 
   docker-compose down -v
+
+  sed -i -- "s/APP=.*/APP=myapp2/g" .env
+  sed -i -- "s/RUBY_DB_ADAPTER=.*/RUBY_DB_ADAPTER=mysql2/g" .env
+  sed -i -- "s/RUBY_DB_HOST=.*/RUBY_DB_HOST=mysql/g" .env
+  sed -i -- "s/RUBY_DB_PORT=.*/RUBY_DB_PORT=3306/g" .env
+  docker-compose run ruby rails-new myapp2 mysql
+  docker-compose up -d ruby mysql
+  docker-compose run ruby env
+  sleep 10
+  docker-compose run ruby bash -c 'cd myapp2 && bin/rails db:create'
+  docker-compose run ruby bash -c 'cd myapp2 && bin/rails db:migrate'
+  docker-compose run ruby bash -c 'cd myapp2 && bin/rails db:setup'
+
+  docker-compose down -v
 fi
