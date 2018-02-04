@@ -36,6 +36,7 @@ services:
       dockerfile: "${MY_RUBY_VERSION}-Dockerfile"
       args:
         - RAILS_VERSION=${RUBY_RAILS_VERSION}
+        - INSTALL_BUNDLER=${RUBY_INSTALL_BUNDLER}
         - INSTALL_NODE=${RUBY_INSTALL_NODE}
         - INSTALL_YARN=${RUBY_INSTALL_YARN}
         - INSTALL_POSTGRES=${RUBY_INSTALL_POSTGRES}

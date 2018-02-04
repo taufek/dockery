@@ -1,7 +1,5 @@
 FROM library/ruby:2.4.2
 
-RUN gem install bundler
-
 RUN mkdir /apps
 RUN mkdir /template
 
@@ -72,13 +70,18 @@ RUN if [ ${INSTALL_DOCKERIZE} = true ]; then \
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
 ;fi
 
-RUN mkdir /app
+COPY template/Gemfile /apps/Gemfile
+RUN sed -i -- "s/RAILS_VERSION/${RAILS_VERSION}/g" /apps/Gemfile
 
-COPY template/Gemfile /app/Gemfile
-RUN sed -i -- "s/RAILS_VERSION/${RAILS_VERSION}/g" /app/Gemfile
+ARG INSTALL_BUNDLER=false
+ENV INSTALL_BUNDLER ${INSTALL_BUNDLER}
 
-RUN cd /app \
-  bundle install
+RUN if [ ${INSTALL_BUNDLER} = true ]; then \
+  gem install bundler \
+  && cd /apps \
+  && bundle install \
+;fi
 
 # Set default work directory
 WORKDIR /apps
+
