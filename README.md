@@ -6,7 +6,7 @@ Docker for Ruby. Docker Containers for Ruby Development Enviroment. It is heavil
 * [Getting Started](#getting-started)
 	* [Environment Values](#environment-values)
 	* [Files and Folders](#files-and-folders)
-	* [Mac-Specific Setup](#mac-specific-setup)
+	* [Docker-Sync-Specific Setup](#docker-sync-specific-setup)
 	* [Create a Project](#create-a-project)
 	* [Run Rails App](#run-rails-app)
 * [App With Database](#app-with-database)
@@ -56,14 +56,14 @@ APPLICATIONS_PATH=../apps
 If you wish to have different place to hold your projects you'll have to change
 that entry.
 
-`ruby` workspace has 2 versions of `volume` mapping; `linux` and `mac`. This is
+`ruby` workspace has 2 versions of `volume` mapping; `cached` and `dockery-sync`. This is
 because for Mac, it requires performance boost with Docker Sync. Refer to
-[Mac-Specific Setup](#mac-specific-setup) for more details. Basically copy either
-`docker-compose.linux.yml` or `docker-compose.mac.yml` to `docker-compose.override.yml`
+[Docker-Sync-Specific Setup](#docker-sync-specific-setup) for more details. Basically copy either
+`docker-compose.cached.yml` or `docker-compose.docker-sync.yml` to `docker-compose.override.yml`
 in order to get your `ruby` workspace volumes mapped to your host machine.
 
-<a name="mac-specific-setup"></a>
-### Mac-Specific Setup
+<a name="docker-sync-specific-setup"></a>
+### Docker-Sync-Specific Setup
 
 Docker on Mac is known to have performance issue with its file syncing.
 To improve the speed, we can use [Docker Sync](http://docker-sync.io).
@@ -85,7 +85,7 @@ If you wish to stop the `docker-sync` service, run `docker-sync stop`.
 
 Refer to this Docker Sync [commands wiki](https://github.com/EugenMayer/docker-sync/wiki/2.1-sync-commands) for other available commands.
 
-`docker-compose.mac.yml` is the override file which overrides the volumes
+`docker-compose.dockery-sync.yml` is the override file which overrides the volumes
 configurations from `docker-compose.yml` to Docker Sync managed volumes.
 
 **There are 2 ways to use this override file.**
@@ -95,17 +95,17 @@ configurations from `docker-compose.yml` to Docker Sync managed volumes.
 > First option is to use `docker-compose -f` flag as shown below:
 
 ```
-docker-compose -f docker-compose.yml -f docker-compose.mac.yml up -d ruby
+docker-compose -f docker-compose.yml -f docker-compose.docker-sync.yml up -d ruby
 ```
 
 - #### 2nd option
 
-> Second option, is to copy `docker-compose.mac.yml` to `docker-compose.override.yml`.
+> Second option, is to copy `docker-compose.docker-sync.yml` to `docker-compose.override.yml`.
 `docker-compose` by default will read both `docker-compose.yml` as default
 and `docker-compose.override.yml` as override configurations.
 
 ```
-cp docker-compose.mac.yml docker-compose.override.yml
+cp docker-compose.docker-sync.yml docker-compose.override.yml
 
 docker-compose up -d ruby
 ```

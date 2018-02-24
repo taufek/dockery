@@ -22,7 +22,7 @@ if [ -n "${MY_RUBY_VERSION}" ]; then
 
   cat .env
 
-  cp docker-compose.linux.yml docker-compose.override.yml
+  cp docker-compose.cached.yml docker-compose.override.yml
 
   docker-compose build ruby
   docker images

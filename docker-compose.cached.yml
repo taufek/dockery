@@ -6,8 +6,8 @@ services:
 
   ruby:
     volumes:
-      - ${APPLICATIONS_PATH}:/apps
-      - ${DATA_PATH}/${RUBY_BUNDLE_DIR}/${MY_RUBY_VERSION}:/usr/local/bundle
+      - ${APPLICATIONS_PATH}:/apps:cached
+      - ${DATA_PATH}/${RUBY_BUNDLE_DIR}/${MY_RUBY_VERSION}:/usr/local/bundle:cached
 
 ### Volumes Setup #############################################
 
