@@ -59,6 +59,7 @@ services:
       - ADMIN_EMAIL=taufek@gmail.com
     ports:
       - "${RUBY_RAILS_PORT}:3000"
+      - "${RUBY_WEBPACK_DEV_SERVER_PORT}:3035"
     tty: true
     stdin_open: true
     volumes:
@@ -68,6 +69,11 @@ services:
     networks:
       - frontend
       - backend
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5k"
+        max-file: "5"
 
 networks:
   frontend:
