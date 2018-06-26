@@ -1,9 +1,29 @@
 version: '3.3'
 
 services:
+  redis:
+    image: redis:3.2-alpine
+    command: redis-server
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis:/var/lib/redis/data'
+    networks:
+      - backend
+
+  elasticsearch:
+    image: elasticsearch
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    networks:
+      - backend
 
   mysql:
     image: mysql
+    command: mysqld --default-authentication-plugin=mysql_native_password
     environment:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
@@ -57,6 +77,8 @@ services:
       - DB_ADAPTER=${RUBY_DB_ADAPTER}
       - DATABASE_ADAPTER=${RUBY_DB_ADAPTER}
       - ADMIN_EMAIL=taufek@gmail.com
+      - REDIS_PROVIDER=redis://redis:6379
+      - REDIS_URL=redis://redis:6379
     ports:
       - "${RUBY_RAILS_PORT}:3000"
       - "${RUBY_WEBPACK_DEV_SERVER_PORT}:3035"
@@ -85,4 +107,8 @@ volumes:
   mysql:
     driver: "local"
   postgres:
+    driver: "local"
+  redis:
+    driver: "local"
+  esdata:
     driver: "local"
