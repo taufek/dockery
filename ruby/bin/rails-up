@@ -2,6 +2,9 @@
 
 cd /apps/${APP_NAME}
 
+echo 'current dir'
+echo `pwd`
+
 rm tmp/pids/server.pid
-bundle check || bundle install
+bin/bundle install
 bin/rails s -b 0.0.0.0
