@@ -31,7 +31,7 @@ services:
       - TZ=${MYSQL_TIMEZONE}
     volumes:
       - ${DATA_PATH}/mysql:/var/lib/mysql
-      - ./mysql/mysql.conf.d:/etc/mysql/mysql.conf.d
+      - ./mysql/conf.d:/etc/mysql/conf.d
     ports:
       - "${MYSQL_PORT}:3306"
     networks:
