@@ -30,7 +30,7 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - TZ=${MYSQL_TIMEZONE}
     volumes:
-      - ${DATA_PATH}/mysql:/var/lib/mysql
+      - ${DATA_PATH}/mysql/${MYSQL_SUBPATH}:/var/lib/mysql
     ports:
       - "${MYSQL_PORT}:3306"
     networks:
