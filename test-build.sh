@@ -52,7 +52,7 @@ if [ -n "${MY_RUBY_VERSION}" ]; then
   docker-compose run ruby rails-new myapp2 mysql
   docker-compose up -d ruby mysql
   docker-compose run ruby env
-  docker-compose run ruby bash -c 'cd myapp2 && dockerize --wait tcp://mysql:3306 -timeout 1m echo "mysql is ready"'
+  docker-compose run ruby bash -c 'cd myapp2 && dockerize --wait tcp://mysql:3306 -timeout 2m echo "mysql is ready"'
   docker-compose run ruby bash -c 'cd myapp2 && bin/rails db:create'
   docker-compose run ruby bash -c 'cd myapp2 && bin/rails db:migrate'
   docker-compose run ruby bash -c 'cd myapp2 && bin/rails db:setup'
