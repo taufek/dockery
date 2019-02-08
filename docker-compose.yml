@@ -22,7 +22,10 @@ services:
       - backend
 
   mysql:
-    image: ${MYSQL_IMAGE_NAME}
+    build:
+      context: ./mysql
+      args:
+        - MYSQL_IMAGE_NAME=${MYSQL_IMAGE_NAME}
     command: mysqld --default-authentication-plugin=mysql_native_password
     environment:
       - MYSQL_USER=${MYSQL_USER}

@@ -6,25 +6,28 @@ ENV RAILS_VERSION ${RAILS_VERSION}
 ARG INSTALL_POSTGRES=false
 ENV INSTALL_POSTGRES ${INSTALL_POSTGRES}
 
+RUN echo "deb [check-valid-until=no] http://archive.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list
+RUN sed -i '/deb http:\/\/deb.debian.org\/debian jessie-updates main/d' /etc/apt/sources.list
+RUN touch /etc/apt/apt.conf.d/10no-check-valid-until
+RUN echo 'Acquire::Check-Valid-Until "0";' > /etc/apt/apt.conf.d/10no-check-valid-until 
+RUN apt-get update -qq --fix-missing
+
 RUN if [ ${INSTALL_POSTGRES} = true ]; then \
-  apt-get update -qq --fix-missing \
-  && apt-get install -y postgresql postgresql-contrib libpq-dev \
+  apt-get install -y postgresql postgresql-contrib libpq-dev \
 ;fi
 
 ARG INSTALL_MYSQL=false
 ENV INSTALL_MYSQL ${INSTALL_MYSQL}
 
 RUN if [ ${INSTALL_MYSQL} = true ]; then \
-  apt-get update -qq --fix-missing \
-  && apt-get install -y mysql-client \
+  apt-get install -y mysql-client \
 ;fi
 
 ARG INSTALL_NODE=false
 ENV INSTALL_NODE ${INSTALL_NODE}
 
 RUN if [ ${INSTALL_NODE} = true ]; then \
-  apt-get update -qq --fix-missing \
-  && apt-get install -y curl \
+  apt-get install -y curl \
   && curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh \
   && bash ./nodesource_setup.sh \
   && rm nodesource_setup.sh \
@@ -44,16 +47,14 @@ ARG INSTALL_QT_DEPS=false
 ENV INSTALL_QT_DEPS ${INSTALL_QT_DEPS}
 
 RUN if [ ${INSTALL_QT_DEPS} = true ]; then \
-  apt-get update \
-  && apt-get -y install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x \
+  apt-get -y install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x \
 ;fi
 
 ARG INSTALL_XVFB=false
 ENV INSTALL_XVFB ${INSTALL_XVFB}
 
 RUN if [ ${INSTALL_XVFB} = true ]; then \
-  apt-get update \
-  && apt-get -y install xvfb\
+  apt-get -y install xvfb\
 ;fi
 
 ENV DOCKERIZE_VERSION v0.6.0
@@ -61,7 +62,7 @@ ARG INSTALL_DOCKERIZE=false
 ENV INSTALL_DOCKERIZE ${INSTALL_DOCKERIZE}
 
 RUN if [ ${INSTALL_DOCKERIZE} = true ]; then \
-  apt-get update && apt-get install -y wget \
+  apt-get install -y wget \
   && wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
