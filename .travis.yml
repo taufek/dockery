@@ -6,7 +6,7 @@ services:
 
 env:
   matrix:
-    - MY_RUBY_VERSION=2.4.2 RUBY_RAILS_VERSION=5.1.4
+    - MY_RUBY_VERSION=2.5.0 RUBY_RAILS_VERSION=5.2.3
 
 # Installing a newer Docker version
 before_install:
