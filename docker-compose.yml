@@ -49,6 +49,16 @@ services:
     networks:
       - backend
 
+  kubernetes:
+    build:
+      context: ./kubernetes
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    volumes:
+      - aws_config:/root/.aws
+      - ssh_config:/root/.ssh
+
   ruby:
     image: ${RUBY_IMAGE_NAME}
     build:
@@ -111,4 +121,8 @@ volumes:
   redis:
     driver: "local"
   esdata:
+    driver: "local"
+  aws_config:
+    driver: "local"
+  ssh_config:
     driver: "local"
