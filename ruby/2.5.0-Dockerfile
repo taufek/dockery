@@ -1,0 +1,88 @@
+FROM library/ruby:2.5.0
+
+ARG RAILS_VERSION=5.1.4
+ENV RAILS_VERSION ${RAILS_VERSION}
+
+ARG INSTALL_POSTGRES=false
+ENV INSTALL_POSTGRES ${INSTALL_POSTGRES}
+
+RUN if [ ${INSTALL_POSTGRES} = true ]; then \
+  apt-get update -qq --fix-missing \
+  && apt-get install -y postgresql postgresql-contrib libpq-dev \
+;fi
+
+ARG INSTALL_MYSQL=false
+ENV INSTALL_MYSQL ${INSTALL_MYSQL}
+
+RUN if [ ${INSTALL_MYSQL} = true ]; then \
+  apt-get update -qq --fix-missing \
+  && apt-get install -y mysql-client \
+;fi
+
+ARG INSTALL_NODE=false
+ENV INSTALL_NODE ${INSTALL_NODE}
+
+RUN if [ ${INSTALL_NODE} = true ]; then \
+  apt-get update -qq --fix-missing \
+  && apt-get install -y curl \
+  && curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh \
+  && bash ./nodesource_setup.sh \
+  && rm nodesource_setup.sh \
+  && apt-get install -y nodejs build-essential \
+;fi
+
+ARG INSTALL_YARN=false
+ENV INSTALL_YARN ${INSTALL_YARN}
+
+RUN if [ ${INSTALL_YARN} = true ]; then \
+    curl -o- -L https://yarnpkg.com/install.sh | bash \
+    && echo "" >> ~/.bashrc \
+    && echo 'export PATH="$HOME/.yarn/bin:$PATH"' >> ~/.bashrc \
+;fi
+
+ARG INSTALL_QT_DEPS=false
+ENV INSTALL_QT_DEPS ${INSTALL_QT_DEPS}
+
+RUN if [ ${INSTALL_QT_DEPS} = true ]; then \
+  apt-get update \
+  && apt-get -y install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x \
+;fi
+
+ARG INSTALL_XVFB=false
+ENV INSTALL_XVFB ${INSTALL_XVFB}
+
+RUN if [ ${INSTALL_XVFB} = true ]; then \
+  apt-get update \
+  && apt-get -y install xvfb\
+;fi
+
+ENV DOCKERIZE_VERSION v0.6.0
+ARG INSTALL_DOCKERIZE=false
+ENV INSTALL_DOCKERIZE ${INSTALL_DOCKERIZE}
+
+RUN if [ ${INSTALL_DOCKERIZE} = true ]; then \
+  apt-get update && apt-get install -y wget \
+  && wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+;fi
+
+RUN mkdir /app
+
+COPY template/Gemfile /app/Gemfile
+RUN sed -i -- "s/RAILS_VERSION/${RAILS_VERSION}/g" /app/Gemfile
+
+ARG INSTALL_BUNDLER=false
+ENV INSTALL_BUNDLER ${INSTALL_BUNDLER}
+
+RUN if [ ${INSTALL_BUNDLER} = true ]; then \
+  gem install bundler \
+  && cd /app \
+  && bundle install \
+;fi
+
+RUN mkdir /apps
+
+# Set default work directory
+WORKDIR /apps
+
