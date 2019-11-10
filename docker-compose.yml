@@ -58,6 +58,7 @@ services:
     volumes:
       - aws_config:/root/.aws
       - ssh_config:/root/.ssh
+      - kube_config:/root/.kube
 
   ruby:
     image: ${RUBY_IMAGE_NAME}
@@ -125,4 +126,6 @@ volumes:
   aws_config:
     driver: "local"
   ssh_config:
+    driver: "local"
+  kube_config:
     driver: "local"
