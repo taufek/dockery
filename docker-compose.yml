@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   redis:
-    image: redis:3.2-alpine
+    image: ${REDIS_IMAGE_NAME}
     command: redis-server
     ports:
       - '6379:6379'
@@ -64,6 +64,7 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST_AUTH_METHOD=trust
     networks:
       - backend
 
