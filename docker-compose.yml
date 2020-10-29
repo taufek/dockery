@@ -116,6 +116,24 @@ services:
         max-size: "5k"
         max-file: "5"
 
+  wordpress:
+    depends_on:
+      - mysql
+    image: wordpress:latest
+    volumes:
+      - ./wordpress/html:/var/www/html
+    ports:
+      - 8000:80
+    environment:
+      - WORDPRESS_DB_USER=${MYSQL_ROOT_PASSWORD}
+      - WORDPRESS_DB_PASSWORD=${MYSQL_PASSWORD}
+      - WORDPRESS_DB_PORT=3306
+      - WORDPRESS_DB_HOST=mysql
+      - WORDPRESS_DB_NAME=wordpress
+    networks:
+      - frontend
+      - backend
+
 networks:
   frontend:
     driver: "bridge"
@@ -134,4 +152,6 @@ volumes:
   redis4:
     driver: "local"
   esdata:
+    driver: "local"
+  wordpress:
     driver: "local"
