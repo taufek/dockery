@@ -1,4 +1,4 @@
-name: TEST SUITE
+name: Test
 
 on:
   push:
