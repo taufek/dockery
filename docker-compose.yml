@@ -2,12 +2,12 @@ version: '3.3'
 
 services:
   redis:
-    image: redis:3.2-alpine
+    image: ${REDIS_IMAGE_NAME}
     command: redis-server
     ports:
-      - '6379:6379'
+      - "${REDIS_PORT}:6379"
     volumes:
-      - 'redis:/var/lib/redis/data'
+      - 'redis${REDIS_VERSION}:/var/lib/redis/data'
     networks:
       - backend
 
@@ -123,6 +123,10 @@ volumes:
   postgres:
     driver: "local"
   redis:
+    driver: "local"
+  redis3:
+    driver: "local"
+  redis4:
     driver: "local"
   esdata:
     driver: "local"

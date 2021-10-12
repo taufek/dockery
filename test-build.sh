@@ -34,7 +34,7 @@ if [ -n "${MY_RUBY_VERSION}" ]; then
   sed -i -- "s/RUBY_DB_HOST=.*/RUBY_DB_HOST=postgres/g" .env
   sed -i -- "s/RUBY_DB_PORT=.*/RUBY_DB_PORT=5432/g" .env
   docker-compose run ruby rails-new myapp postgresql
-  docker-compose up -d ruby postgres
+  docker-compose up -d ruby postgres redis
   docker-compose run ruby env
   docker-compose run ruby bash -c 'cd myapp && dockerize --wait tcp://postgres:5432 echo "postgresql is ready"'
   docker-compose run ruby bash -c 'cd myapp && bin/rails db:create'
@@ -50,7 +50,7 @@ if [ -n "${MY_RUBY_VERSION}" ]; then
   sed -i -- "s/RUBY_DB_HOST=.*/RUBY_DB_HOST=mysql/g" .env
   sed -i -- "s/RUBY_DB_PORT=.*/RUBY_DB_PORT=3306/g" .env
   docker-compose run ruby rails-new myapp2 mysql
-  docker-compose up -d ruby mysql
+  docker-compose up -d ruby mysql redis
   docker-compose run ruby env
   docker-compose run ruby bash -c 'cd myapp2 && dockerize --wait tcp://mysql:3306 -timeout 1m echo "mysql is ready"'
   docker-compose run ruby bash -c 'cd myapp2 && bin/rails db:create'
